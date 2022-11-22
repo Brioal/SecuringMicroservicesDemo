@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.lzu'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // API服务支持
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Java持久层API ORM框架
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // 缓存框架
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // Mysql连接驱动
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    // jjwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

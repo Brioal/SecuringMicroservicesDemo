@@ -5,10 +5,7 @@ import com.lzu.securingmicroservicesdemo.injections.PermissionCheck;
 import com.lzu.securingmicroservicesdemo.service.cache.RedisService;
 import com.lzu.securingmicroservicesdemo.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequestMapping("/admin")
 @RestController
@@ -53,9 +50,9 @@ public class AdminController {
      * @return
      */
     @GetMapping("/test")
-    @PermissionCheck(ADMIN_ALLOW = true,USER_ALLOW = false,requireAuthorities = "news_delete")
+    @PermissionCheck(ADMIN_ALLOW = true,USER_ALLOW = false)
     public String test() {
-        return "普通用户不允许访问该方法";
+        return "管理员允许访问";
     }
 
 

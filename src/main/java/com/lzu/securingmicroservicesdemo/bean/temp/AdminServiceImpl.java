@@ -1,22 +1,9 @@
 package com.lzu.securingmicroservicesdemo.bean.temp;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
 import com.lzu.securingmicroservicesdemo.bean.AdminBean;
-import com.lzu.securingmicroservicesdemo.bean.temp.AdminRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.lang.Integer;
-import java.lang.String;
-import java.util.ArrayList;
-import java.util.List;
 
 @Log4j2
 @Service
@@ -71,4 +58,5 @@ public class AdminServiceImpl implements AdminService {
     public boolean checkCode(String code) {
         return adminRepository.existsAllByCodeEquals(code);
     }
+
 }

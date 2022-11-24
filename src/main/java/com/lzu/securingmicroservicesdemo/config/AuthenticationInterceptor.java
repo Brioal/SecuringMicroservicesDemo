@@ -13,7 +13,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
 import java.util.Date;
 
 
@@ -36,7 +35,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 判断接口是否需要登录
         PermissionCheck methodAnnotation = ((HandlerMethod) handler).getMethodAnnotation(PermissionCheck.class);
-        if (methodAnnotation == null) {
+        if (methodAnnotation != null) {
+            //response.setCharacterEncoding("UTF-8");
+            //response.setContentType("application/json; charset=utf-8");
+            //response.getWriter().append("权限校验失败,不允许访问");
             return true;
         }
         String accessToken = request.getHeader("token");
@@ -58,7 +60,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             String code = claims.getId();
             // 从Redis读取,判断token是否相等,不相等则踢下线
             String existToken = (String) redisService.get(code);
-            if (accessToken.equals(existToken)) {
+            if (!accessToken.equals(existToken)) {
                 // todo 踢下线
                 return false;
             }
